@@ -1,38 +1,31 @@
-# Cooking Performance Evaluation using function
-
-def evaluate_chef(chef_name, kitchen_name, dish_name, taste, presentation, hygiene):
-    # Calculate average score
-    average_score = (taste + presentation + hygiene) / 3
-
-    # Assign performance level
-    if average_score >= 90:
-        performance = "Master Chef"
-    elif average_score >= 80:
-        performance = "Expert Chef"
-    elif average_score >= 65:
-        performance = "Skilled Chef"
-    elif average_score >= 50:
-        performance = "Beginner Chef"
+def calculate_cook_bonus(present_days):
+    """
+    Calculates bonus for a cook based on number of present days.
+    """
+    if present_days >= 26:
+        return 5000
+    elif present_days >= 20:
+        return 3000
+    elif present_days >= 15:
+        return 1500
     else:
-        performance = "Needs Improvement"
-
-    # Display result
-    print("\n--- Cooking Performance Result ---")
-    print("Chef Name:", chef_name)
-    print("Kitchen Name:", kitchen_name)
-    print("Dish Prepared:", dish_name)
-    print("Average Score:", round(average_score, 2))
-    print("Performance Level:", performance)
+        return 0
 
 
-# Main program
-chef_name = input("Enter Chef Name: ")
-kitchen_name = input("Enter Kitchen Name: ")
-dish_name = input("Enter Dish Prepared: ")
+if __name__ == "__main__":
+    import sys
 
-taste = float(input("Enter Taste Score (0-100): "))
-presentation = float(input("Enter Presentation Score (0-100): "))
-hygiene = float(input("Enter Hygiene Score (0-100): "))
+    if len(sys.argv) != 4:
+        print("Usage: python cook_bonus.py <cook_id> <name> <present_days>")
+    else:
+        cook_id = int(sys.argv[1])
+        name = sys.argv[2]
+        present_days = int(sys.argv[3])
 
-# Function call
-evaluate_chef(chef_name, kitchen_name, dish_name, taste, presentation, hygiene)
+        bonus = calculate_cook_bonus(present_days)
+
+        print("\n--- Cook Bonus Details ---")
+        print("Cook ID:", cook_id)
+        print("Cook Name:", name)
+        print("Present Days:", present_days)
+        print("Bonus:", bonus)
