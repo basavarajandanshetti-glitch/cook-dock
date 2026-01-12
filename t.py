@@ -1,32 +1,21 @@
-import pytest
-from chef import evaluate_chef
+from cook_bonus import calculate_cook_bonus  # import your cook function
 
+# Test for >=26 present days → 5000
+def test_bonus_26():
+    assert calculate_cook_bonus(26) == 5000
+    assert calculate_cook_bonus(30) == 5000  # edge case above 26
 
-def test_master_chef(capsys):
-    evaluate_chef("Ravi", "Royal Kitchen", "Biryani", 95, 92, 93)
-    captured = capsys.readouterr()
-    assert "Master Chef" in captured.out
+# Test for >=20 present days → 3000
+def test_bonus_20():
+    assert calculate_cook_bonus(20) == 3000
+    assert calculate_cook_bonus(25) == 3000  # edge case below 26
 
+# Test for >=15 present days → 1500
+def test_bonus_15():
+    assert calculate_cook_bonus(15) == 1500
+    assert calculate_cook_bonus(19) == 1500  # edge case below 20
 
-def test_expert_chef(capsys):
-    evaluate_chef("Anita", "Spice Hub", "Paneer Butter Masala", 85, 82, 80)
-    captured = capsys.readouterr()
-    assert "Expert Chef" in captured.out
-
-
-def test_skilled_chef(capsys):
-    evaluate_chef("Suresh", "Home Kitchen", "Dosa", 70, 68, 66)
-    captured = capsys.readouterr()
-    assert "Skilled Chef" in captured.out
-
-
-def test_beginner_chef(capsys):
-    evaluate_chef("Meena", "Street Food", "Pav Bhaji", 55, 52, 50)
-    captured = capsys.readouterr()
-    assert "Beginner Chef" in captured.out
-
-
-def test_needs_improvement(capsys):
-    evaluate_chef("Arjun", "Mini Kitchen", "Sandwich", 40, 45, 42)
-    captured = capsys.readouterr()
-    assert "Needs Improvement" in captured.out
+# Test for <15 present days → 0
+def test_bonus_10():
+    assert calculate_cook_bonus(10) == 0
+    assert calculate_cook_bonus(0) == 0      # edge case 0 days
